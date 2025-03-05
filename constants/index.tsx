@@ -9,12 +9,10 @@ export type FilterBy = (typeof FILTER_BY)[number]["value"];
 export const SORT_BY = [
   { text: "Popularity Desc", value: "popularity.desc" },
   { text: "Popularity Asc", value: "popularity.asc" },
-  { text: "Primary Release Date Desc", value: "primary_release_date.desc" },
-  { text: "Primary Release Date Asc", value: "primary_release_date.asc" },
+  { text: "Release Date Desc", value: "release_date.desc" },
+  { text: "Release Date Asc", value: "release_date.asc" },
   { text: "Vote Average Desc", value: "vote_average.desc" },
   { text: "Vote Average Asc", value: "vote_average.asc" },
-  { text: "Revenue Desc", value: "revenue.desc" },
-  { text: "Revenue Asc", value: "revenue.asc" },
 ] as const;
 export type SortBy = (typeof SORT_BY)[number]["value"];
 

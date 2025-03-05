@@ -1,13 +1,6 @@
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { FILTER_BY, SORT_BY, type FilterBy, type SortBy } from "@/constants";
+import SelectFilterBy from "./select-filter-by";
+import SelectSortBy from "./select-sort-by";
 
 export default function Header() {
   return (
@@ -20,39 +13,13 @@ export default function Header() {
           <Label className="pl-[6px]" htmlFor="filter">
             Filter by
           </Label>
-          <Select name="filter-by" value="now_playing">
-            <SelectTrigger className="w-[280px]" id="filter">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {FILTER_BY.map(filter => (
-                  <SelectItem value={filter.value} key={filter.value}>
-                    {filter.text}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <SelectFilterBy />
         </div>
         <div className="flex flex-col gap-[6px]">
           <Label className="pl-[6px]" htmlFor="sort">
             Sort by
           </Label>
-          <Select name="sort-by" value="popularity.desc">
-            <SelectTrigger className="w-[280px]" id="sort">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {SORT_BY.map(sort => (
-                  <SelectItem value={sort.value} key={sort.value}>
-                    {sort.text}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <SelectSortBy />
         </div>
       </div>
     </header>
