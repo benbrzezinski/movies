@@ -17,20 +17,10 @@ interface Store {
   setGenre: (genre: Genre) => void;
 }
 
-interface InitialState {
-  filter: FilterBy;
-  sort: SortBy;
-  genre: Genre;
-}
-
-const initialState: InitialState = {
+const useStore = create<Store>(set => ({
   filter: FILTER_BY[0].value,
   sort: SORT_BY[0].value,
   genre: GENRES[0].value,
-};
-
-const useStore = create<Store>(set => ({
-  ...initialState,
   setFilter: (filter: FilterBy) => set({ filter }),
   setSort: (sort: SortBy) => set({ sort }),
   setGenre: (genre: Genre) => set({ genre }),

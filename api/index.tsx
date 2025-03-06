@@ -7,7 +7,7 @@ const BASE_URL = "https://api.themoviedb.org/3/movie";
 export const getMovies = async (filter: FilterBy) => {
   try {
     const res = await axios.get(`${BASE_URL}/${filter}?api_key=${API_KEY}`);
-    console.log(res.data);
+    return res.data;
   } catch (err) {
     throw new Error("An unexpected error occurred, please try again later.");
   }
