@@ -20,7 +20,7 @@ export default function SelectFilterBy() {
       value={filter}
       onValueChange={value => setFilter(value as FilterBy)}
     >
-      <SelectTrigger className="w-[280px]" id="filter">
+      <SelectTrigger className="w-[290px]" id="filter">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

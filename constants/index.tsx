@@ -2,18 +2,19 @@ export const FILTER_BY = [
   { text: "Now Playing", value: "now_playing" },
   { text: "Popular", value: "popular" },
   { text: "Top Rated", value: "top_rated" },
-  { text: "Upcoming", value: "upcoming" },
+  { text: "Coming Soon", value: "upcoming" },
 ] as const;
 export type FilterBy = (typeof FILTER_BY)[number]["value"];
 
 export const SORT_BY = [
-  { text: "Popularity Desc", value: "popularity.desc" },
-  { text: "Popularity Asc", value: "popularity.asc" },
-  { text: "Release Date Desc", value: "release_date.desc" },
-  { text: "Release Date Asc", value: "release_date.asc" },
-  { text: "Vote Average Desc", value: "vote_average.desc" },
-  { text: "Vote Average Asc", value: "vote_average.asc" },
+  { text: "Popularity (High to Low)", value: "popularity.desc" },
+  { text: "Popularity (Low to High)", value: "popularity.asc" },
+  { text: "Newest First", value: "release_date.desc" },
+  { text: "Oldest First", value: "release_date.asc" },
+  { text: "Highest Rated", value: "vote_average.desc" },
+  { text: "Lowest Rated", value: "vote_average.asc" },
 ] as const;
+
 export type SortBy = (typeof SORT_BY)[number]["value"];
 
 export const GENRES = [
@@ -39,3 +40,5 @@ export const GENRES = [
   { value: "western", id: 37 },
 ] as const;
 export type Genre = (typeof GENRES)[number]["value"];
+
+export const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";

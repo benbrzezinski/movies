@@ -20,7 +20,7 @@ export default function SelectSortBy() {
       value={sort}
       onValueChange={value => setSort(value as SortBy)}
     >
-      <SelectTrigger className="w-[280px]" id="sort">
+      <SelectTrigger className="w-[290px]" id="sort">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
