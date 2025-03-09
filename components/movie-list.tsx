@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import useFilteredMovies from "@/hooks/useFilteredMovies";
 import Image from "next/image";
-import { TMDB_IMAGE_BASE_URL } from "@/constants";
 import Loader from "./loader";
+import useFilteredMovies from "@/hooks/useFilteredMovies";
+import { TMDB_IMAGE_BASE_URL } from "@/constants";
 
 export default function MovieList() {
   const { movies, isLoading, error } = useFilteredMovies();
@@ -25,9 +25,9 @@ export default function MovieList() {
 
   return movies.length > 0 ? (
     <ul className="flex justify-center items-center flex-wrap gap-[50px] pt-[50px]">
-      {movies.map(({ id, original_title, poster_path, vote_average }) => (
+      {movies.map(({ id, original_title, poster_path, vote_average }, i) => (
         <li
-          className="rounded-2xl relative overflow-hidden hover:shadow-[0px_0px_5px_1px_#fe9a00] focus-visible:shadow-[0px_0px_5px_1px_#fe9a00] transition-shadow group"
+          className="rounded-2xl relative overflow-hidden hover:shadow-[0px_0px_5px_1px_#fe9a00] focus-visible:shadow-[0px_0px_5px_1px_#fe9a00] transition-shadow duration-250 group"
           key={id}
           tabIndex={1}
         >
@@ -35,15 +35,15 @@ export default function MovieList() {
             <Image
               src={`${TMDB_IMAGE_BASE_URL}${poster_path}`}
               alt={original_title}
-              className="bg-amber-600 aspect-[2/3] object-cover rounded-2xl hover:scale-110 focus-visible:scale-110 transition-transform"
+              className="bg-amber-600 aspect-[2/3] object-cover rounded-2xl hover:scale-110 transition-transform duration-250"
               width={300}
               height={450}
-              priority
+              priority={i < 12 ? true : false}
               onLoad={e => {
                 e.currentTarget.style.backgroundColor = "unset";
               }}
             />
-            <div className="text-amber-500 text-2xl font-semibold absolute inset-0 flex justify-center items-center flex-col gap-[10px] bg-[rgba(0,_0,_0,_0.8)] opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity pointer-events-none text-center p-[30px]">
+            <div className="text-amber-500 text-2xl font-semibold absolute inset-0 flex justify-center items-center flex-col gap-[10px] bg-[rgba(0,_0,_0,_0.8)] opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-250 pointer-events-none text-center p-[30px]">
               <p className="w-full break-words">{original_title}</p>
               <div className="flex items-center gap-[6px]">
                 <p className="w-full break-words">{vote_average.toFixed(1)}</p>

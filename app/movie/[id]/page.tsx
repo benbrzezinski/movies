@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Loader from "@/components/loader";
+import BackButton from "@/components/back-button";
 import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getMovieDetails } from "@/api";
-import Loader from "@/components/loader";
-import { Button } from "@/components/ui/button";
 import type { MovieDetailsTypes } from "@/types";
 import { TMDB_IMAGE_BASE_URL } from "@/constants";
 import { formatRuntime } from "@/lib/utils";
@@ -17,7 +16,6 @@ interface MovieDetailsProps {
 
 export default function MovieDetails({ params }: MovieDetailsProps) {
   const { id } = use(params);
-  const router = useRouter();
 
   const {
     data: movie_details,
@@ -38,16 +36,18 @@ export default function MovieDetails({ params }: MovieDetailsProps) {
 
   if (error) {
     return (
-      <div className="absolute inset-0 flex justify-center items-center">
+      <div className="absolute inset-0 flex flex-col justify-center items-center gap-[30px] text-center">
         <p>{error.message}</p>
+        <BackButton />
       </div>
     );
   }
 
   if (!movie_details) {
     return (
-      <div className="absolute inset-0 flex justify-center items-center">
+      <div className="absolute inset-0 flex flex-col justify-center items-center gap-[30px] text-center">
         <p>Movie details not found. Please check back later!</p>
+        <BackButton />
       </div>
     );
   }
@@ -65,12 +65,7 @@ export default function MovieDetails({ params }: MovieDetailsProps) {
 
   return (
     <main>
-      <Button
-        className="bg-amber-500 mb-[50px] hover:bg-[#e58b00] focus-visible:bg-[#e58b00] transition-colors"
-        onClick={() => router.back()}
-      >
-        Go back
-      </Button>
+      <BackButton />
       <div className="flex flex-col items-center gap-[50px] lg:flex-row">
         <Image
           src={`${TMDB_IMAGE_BASE_URL}${poster_path}`}
