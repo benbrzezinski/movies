@@ -38,7 +38,7 @@ export default function MovieList() {
               className="bg-amber-600 aspect-[2/3] object-cover rounded-2xl hover:scale-110 transition-transform duration-250"
               width={300}
               height={450}
-              priority={i < 12 ? true : false}
+              priority={i < 8 ? true : false}
               onLoad={e => {
                 e.currentTarget.style.backgroundColor = "unset";
               }}
