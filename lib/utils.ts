@@ -1,7 +1,7 @@
-import { GENRES, type Genre, SORT_BY, type SortBy } from "@/constants";
-import type { Movie } from "@/types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { GENRES, type Genre, SORT_BY, type SortBy } from "@/constants";
+import type { Movie } from "@/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -47,6 +47,9 @@ export function sortMovies(movies: Movie[], sort: SortBy) {
 
     case SORT_BY[5].value:
       return movies.toSorted((a, b) => a.vote_average - b.vote_average);
+
+    default:
+      return movies;
   }
 }
 
@@ -131,5 +134,8 @@ export function filterMoviesByGenre(movies: Movie[], genre: Genre) {
       return movies.filter(({ genre_ids }) =>
         genre_ids.includes(GENRES[19].id)
       );
+
+    default:
+      return movies;
   }
 }

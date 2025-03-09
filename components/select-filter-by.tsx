@@ -9,17 +9,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FILTER_BY, type FilterBy } from "@/constants";
-import useStore from "@/store";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function SelectFilterBy() {
-  const { filter, setFilter } = useStore();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const currentFilter = searchParams.get("filter") ?? FILTER_BY[0].value;
+
+  const handleChange = (value: FilterBy) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("filter", value);
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   return (
-    <Select
-      name="filter-by"
-      value={filter}
-      onValueChange={value => setFilter(value as FilterBy)}
-    >
+    <Select name="filter-by" value={currentFilter} onValueChange={handleChange}>
       <SelectTrigger className="w-[290px]" id="filter">
         <SelectValue />
       </SelectTrigger>
