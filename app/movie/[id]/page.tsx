@@ -1,0 +1,120 @@
+"use client";
+
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { use } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getMovieDetails } from "@/api";
+import Loader from "@/components/loader";
+import { Button } from "@/components/ui/button";
+import type { MovieDetailsTypes } from "@/types";
+import { TMDB_IMAGE_BASE_URL } from "@/constants";
+import { formatRuntime } from "@/lib/utils";
+
+interface MovieDetailsProps {
+  params: Promise<{ id: string }>;
+}
+
+export default function MovieDetails({ params }: MovieDetailsProps) {
+  const { id } = use(params);
+  const router = useRouter();
+
+  const {
+    data: movie_details,
+    isLoading,
+    error,
+  } = useQuery<MovieDetailsTypes>({
+    queryKey: ["movie_details", id],
+    queryFn: () => getMovieDetails(id),
+  });
+
+  if (isLoading) {
+    return (
+      <div className="absolute inset-0 flex justify-center items-center">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="absolute inset-0 flex justify-center items-center">
+        <p>{error.message}</p>
+      </div>
+    );
+  }
+
+  if (!movie_details) {
+    return (
+      <div className="absolute inset-0 flex justify-center items-center">
+        <p>Movie details not found. Please check back later!</p>
+      </div>
+    );
+  }
+
+  const {
+    genres,
+    original_title,
+    overview,
+    poster_path,
+    release_date,
+    runtime,
+    vote_average,
+    vote_count,
+  } = movie_details;
+
+  return (
+    <main>
+      <Button
+        className="bg-amber-500 mb-[50px] hover:bg-[#e58b00] focus-visible:bg-[#e58b00] transition-colors"
+        onClick={() => router.back()}
+      >
+        Go back
+      </Button>
+      <div className="flex flex-col items-center gap-[50px] lg:flex-row">
+        <Image
+          src={`${TMDB_IMAGE_BASE_URL}${poster_path}`}
+          alt={original_title}
+          width={400}
+          height={600}
+          className="object-cover aspect-[2/3] rounded-xl bg-amber-600"
+          priority
+          onLoad={e => {
+            e.currentTarget.style.backgroundColor = "unset";
+          }}
+        />
+        <div className="flex flex-col gap-[30px] max-w-[600px]">
+          <div className="flex flex-wrap gap-[15px]">
+            <h1 className="text-4xl">{original_title}</h1>
+            <div className="flex items-end gap-[15px]">
+              <p className="text-sm">{release_date.slice(0, 4)}</p>
+              <p className="text-sm">{formatRuntime(runtime)}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-[6px]">
+            <Image
+              src="/star.svg"
+              alt="Star rating icon"
+              width={22}
+              height={22}
+            />
+            <p className="text-xl">
+              {vote_average.toFixed(1)} /{" "}
+              {vote_count === 1
+                ? `${vote_count} rating`
+                : `${vote_count} ratings`}
+            </p>
+          </div>
+          <p>{overview}</p>
+          <div className="flex flex-wrap gap-[10px]">
+            {genres.map(({ name }) => (
+              <p className="border rounded-md p-[8px]" key={name}>
+                {name}
+              </p>
+            ))}
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}

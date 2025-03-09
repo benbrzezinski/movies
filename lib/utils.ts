@@ -11,6 +11,13 @@ function formatDate(date: string) {
   return date.split("-").join("");
 }
 
+export function formatRuntime(runtime: number) {
+  const hours = Math.floor(runtime / 60);
+  const minutes = runtime % 60;
+
+  return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+}
+
 export function sortMovies(movies: Movie[], sort: SortBy) {
   switch (sort) {
     case SORT_BY[0].value:
