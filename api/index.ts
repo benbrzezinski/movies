@@ -1,5 +1,5 @@
-import type { FilterBy } from "@/constants";
 import axios, { isAxiosError } from "axios";
+import type { FilterBy } from "@/constants";
 
 const API_KEY = "9a8ad990026fd09fe799383aad117e18";
 const BASE_URL = "https://api.themoviedb.org/3/movie";
